@@ -26,3 +26,12 @@ create table workdays(
 );
 
 create sequence workdays_id_seq;
+
+create table monthly_compensations(
+    id bigint not null,
+    personnel_id bigint,
+    total_amount bigint,
+    primary key (id)
+);
+
+create sequence monthlycompesations_id_seq;

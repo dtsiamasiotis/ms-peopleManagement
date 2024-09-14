@@ -4,6 +4,7 @@ import org.hospitalManagement.mspeoplemanagement.persistence.model.WorkDay;
 import org.hospitalManagement.mspeoplemanagement.persistence.repositories.WorkdaysRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -40,4 +41,13 @@ public class WorkdaysManagementService {
 
         workdaysRepository.save(mostRecentWorkday);
     }
+
+    public List<WorkDay> getWorkDays(Long personnelId) {
+        return workdaysRepository.findAllByPersonnelIdAndStartTimeBefore(personnelId,now());
+    }
+
+    public List<WorkDay> getWorkDaysByPersonnelIdAndBetween(Long personnelId, ZonedDateTime after, ZonedDateTime before) {
+        return workdaysRepository.findAllByPersonnelIdAndStartTimeAfterAndStartTimeBefore(personnelId, after, before);
+    }
+
 }

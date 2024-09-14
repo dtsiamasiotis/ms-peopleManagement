@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface WorkdaysRepository extends ListCrudRepository<WorkDay, Long> {
     List<WorkDay> findAllByPersonnelIdAndStartTimeBefore(Long personnelId, ZonedDateTime tstamp);
+    List<WorkDay> findAllByPersonnelIdAndStartTimeAfterAndStartTimeBefore(Long personnelId, ZonedDateTime after, ZonedDateTime before);
 }

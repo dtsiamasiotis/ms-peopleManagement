@@ -1,7 +1,7 @@
 package org.hospitalManagement.mspeoplemanagement.api;
 
 import jakarta.validation.Valid;
-import org.hospitalManagement.mspeoplemanagement.persistence.model.Patient;
+import org.hospitalManagement.mspeoplemanagement.services.CompensationService;
 import org.hospitalManagement.mspeoplemanagement.persistence.model.Personnel;
 import org.hospitalManagement.mspeoplemanagement.services.PersonnelManagementService;
 import org.hospitalManagement.mspeoplemanagement.services.WorkdaysManagementService;
@@ -14,10 +14,12 @@ public class PersonnelController {
 
     private PersonnelManagementService personnelManagementService;
     private WorkdaysManagementService workdaysManagementService;
+    private CompensationService compensationService;
 
-    public PersonnelController (PersonnelManagementService personnelManagementService, WorkdaysManagementService workdaysManagementService) {
+    public PersonnelController (PersonnelManagementService personnelManagementService, WorkdaysManagementService workdaysManagementService, CompensationService compensationService) {
         this.personnelManagementService = personnelManagementService;
         this.workdaysManagementService = workdaysManagementService;
+        this.compensationService = compensationService;
     }
 
     @GetMapping("/listPersonnel")
@@ -42,6 +44,6 @@ public class PersonnelController {
 
     @GetMapping("/calculateMonthlyCompensation")
     public void calculateMonthlyCompensation() {
-
+        compensationService.calculateMonthlyCompensation();
     }
 }
