@@ -24,20 +24,28 @@ public class CompensationService {
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime startDate = now.minusMonths(1).withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
         ZonedDateTime endDate = now.withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
+
         for (Personnel personnel : personnelList) {
+            float salaryPerHour = (float)personnel.getBaseSalary() / (25 * 8);
             List<WorkDay> workDays = workdaysManagementService.getWorkDaysByPersonnelIdAndBetween(personnel.getId(), startDate, endDate);
-            long overtime = 0;
+            float overtime = 0;
             for (WorkDay workDay : workDays) {
                 Duration duration = Duration.between(workDay.getStartTime(), workDay.getEndTime());
-                if (duration.toHours() > 8) {
-                    overtime += (duration.toHours() - 8);
+                float durationInHours = (float)duration.getSeconds() / 3600;
+
+                if (durationInHours > 8) {
+                    overtime += (durationInHours - 8);
                 }
+
             }
 
-            long totalAmount = personnel.getBaseSalary() + overtime * 25;
+            long overtimeAmount = (long) (overtime * salaryPerHour);
+            long totalAmount = personnel.getBaseSalary() + overtimeAmount;
+
             MonthlyCompensation monthlyCompensation = new MonthlyCompensation();
             monthlyCompensation.setPersonnelId(personnel.getId());
             monthlyCompensation.setTotalAmount(totalAmount);
+            monthlyCompensation.setOvertimeAmount(overtimeAmount);
             monthlyCompensationRepository.save(monthlyCompensation);
         }
 

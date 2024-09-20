@@ -43,7 +43,8 @@ public class PersonnelController {
     }
 
     @GetMapping("/calculateMonthlyCompensation")
-    public void calculateMonthlyCompensation() {
+    public String calculateMonthlyCompensation() {
         compensationService.calculateMonthlyCompensation();
+        return "OK";
     }
 }

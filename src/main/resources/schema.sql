@@ -31,6 +31,7 @@ create table monthly_compensations(
     id bigint not null,
     personnel_id bigint,
     total_amount bigint,
+    overtime_amount bigint,
     primary key (id)
 );
 

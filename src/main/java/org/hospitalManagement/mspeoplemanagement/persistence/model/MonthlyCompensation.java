@@ -15,4 +15,6 @@ public class MonthlyCompensation {
     private Long personnelId;
 
     private Long totalAmount;
+
+    private Long overtimeAmount;
 }
