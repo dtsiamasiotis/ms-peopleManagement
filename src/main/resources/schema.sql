@@ -2,6 +2,8 @@ create table patients(
     id bigint not null,
     first_name varchar(100),
     last_name varchar(100),
+    email varchar(50),
+    insurance_number bigint,
     primary key (id)
 );
 
