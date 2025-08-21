@@ -4,6 +4,7 @@ import org.hospitalManagement.mspeoplemanagement.persistence.model.Patient;
 import org.hospitalManagement.mspeoplemanagement.persistence.repositories.PatientRepository;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,11 +25,12 @@ public class PatientManagementService {
         patientRepository.save(patient);
     }
 
-    public Patient getPatientById(Long id) {
-        Optional<Patient> patient = patientRepository.findById(id);
-        if(!patient.isEmpty())
-            return patient.get();
-        else
-            return null;
+    public Optional<Patient> getPatientById(Long id) {
+        return patientRepository.findById(id);
     }
+
+    public Optional<Patient> getPatientByInsuranceNumber(Long insuranceNumber) {
+        return patientRepository.findPatientByInsuranceNumber(insuranceNumber);
+    }
+
 }
